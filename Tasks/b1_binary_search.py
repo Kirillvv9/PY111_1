@@ -18,7 +18,12 @@ def binary_search(elem: int, arr: Sequence) -> Optional[int]:
         middle_e = arr[middle_]  # назначили центральный
 
         if middle_e == elem:
-            return middle_
+            middle_ = middle_e
+            while middle_ >= 0:
+                middle_ -= 1
+                if arr[middle_] == elem:
+                    middle_ -= 1
+                    return middle_
 
         elif middle_e > elem:
             right_ = middle_ - 1
