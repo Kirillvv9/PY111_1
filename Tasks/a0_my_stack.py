@@ -6,7 +6,7 @@ from typing import Any
 
 class Stack:
     def __init__(self):
-        ...  # todo для стека можно использовать python list
+        self.stack = []  # todo для стека можно использовать python list
 
     def push(self, elem: Any) -> None:
         """
@@ -16,6 +16,7 @@ class Stack:
         :return: Nothing
         """
         print(elem)
+        self.stack.append(elem)  # добавляет новый элемент в конец
         return None
 
     def pop(self) -> Any:
@@ -24,7 +25,10 @@ class Stack:
 
         :return: popped element
         """
-        return None
+        if self.stack:
+            return self.stack.pop()
+        else:
+            return None
 
     def peek(self, ind: int = 0) -> Any:
         """
@@ -34,7 +38,10 @@ class Stack:
         :return: peeked element or None if no element in this place
         """
         print(ind)
-        return None
+        if ind < len(self.stack):
+            return self.stack[- ind - 1]
+        else:
+            return None
 
     def clear(self) -> None:
         """
@@ -42,4 +49,4 @@ class Stack:
 
         :return: None
         """
-        return None
+        self.stack.clear()
