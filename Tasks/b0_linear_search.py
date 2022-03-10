@@ -18,5 +18,7 @@ def min_search(arr: Sequence) -> int:
             min_element = elem
             min_element_index = i
     print(arr)
+
     return min_element_index
+
 
