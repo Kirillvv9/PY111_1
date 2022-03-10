@@ -9,7 +9,7 @@ def stairway_path(stairway: Sequence[Union[float, int]]) -> Union[float, int]:
     :return: minimal cost of getting to the top
     """
 
-    stairs = len(stairway)  # считаем количесвто ступеней
+    stairs = len(stairway)  # считаем количесвто ступенейй
     for i in range(2, stairs):
         stairway[i] = stairway[i] + min(stairway[i - 1], stairway[i - 2])  # заменяем цену каждой ступени на
         # минимальную стоимость подхода к ней ([1, 10, 5, 11] -> [1, 10, 6 (5 + 1), 11]...)
