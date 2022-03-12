@@ -6,9 +6,15 @@ def check_brackets(brackets_row: str) -> bool:
     :param brackets_row: input string to be checked
     :return: True if valid, False otherwise
     """
-    left_ = brackets_row.count('(')
-    right_ = brackets_row.count(')')
-    if left_ == right_ and brackets_row.startswith(')') == False or left_ == 0 and right_ == 0:
+    n = 0  # будем считать число скобочек
+    for i in brackets_row:
+        if i == '(':
+            n += 1
+        elif i == ')':
+            n -= 1  # в итоге должен быть 0
+            if n < 0:  # если находится одна закрывающая скобка перед открывающей, то False
+                break
+    if n == 0:
         return True
     else:
         return False
