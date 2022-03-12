@@ -17,13 +17,17 @@ def binary_search(elem: int, arr: Sequence, left_ = None, right_ = None) -> Opti
     if left_ > right_:
         return None
     if arr[middle_] == elem:
-        return middle_
+        first_elem = arr.index(elem)
+        return first_elem
     if arr[middle_] < elem:
         left_ = middle_ + 1
         return binary_search(elem, arr, left_, right_)
     if arr[middle_] > elem:
         right_ = middle_ - 1
         return binary_search(elem, arr, left_, right_)
+
+
+
 
 
 
