@@ -2,7 +2,7 @@
 Taylor series
 """
 from typing import Union
-import math
+
 from itertools import count
 constant = 0.000000001
 
@@ -15,13 +15,15 @@ def ex(x: Union[int, float]) -> float:
     :return: e^x value
     """
     total = 0
-    n = 0
-    while True:
-        f_ex = (x ** n) / (math.factorial(n))
-        n += 1
-        total += f_ex
-        if f_ex < constant:
+    a = b = 1
+
+    for n in count(1, 1):
+        current_item = a / b
+        total += current_item
+        if abs(current_item) < constant:
             return total
+        a = a * x
+        b = b * n
 
 
 def sinx(x: Union[int, float]) -> float:
@@ -32,10 +34,15 @@ def sinx(x: Union[int, float]) -> float:
     :return: sin(x) value
     """
     total = 0
+    a = b = 1
+    per = x
 
-    for n in count(0, 1):
-        f_sin = ((-1) ** n) * ((x ** (2 * n + 1)) / (math.factorial(2 * n + 1)))
-        total += f_sin
-        if abs(f_sin) <= constant:
+    for n in count(3, 2):
+        current_item = a * per / b
+        total += current_item
+        if abs(current_item) < constant:
             return total
+        a = -a
+        b = b * n * (n - 1)
+        per = per * (x ** 2)
 
