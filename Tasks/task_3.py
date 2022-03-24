@@ -1,39 +1,44 @@
-def dfs(g, s, S = set()):
-    P, Q = dict(), set()
-    P[s] = None  # узел первый по счету
-    Q.add(s)  # начнем поиск с s
-    while Q:
-        u = Q.pop()
-        for v in g[u].difference(P, S):  # получим новый узел
-            Q.add(v)
-            P[v] = u  # записываем предыдущий узел
-    return P
+class Graph:
+    def __init__(self, G):
+        self.G = G  # количество вершин
+        self.start = [[] for i in range(self.G)]
+
+    def add(self, v, w):
+        """
+        Создаем граф
+        """
+        self.start[v].append(w)
+        self.start[w].append(v)
+
+    def dfs(self, v, visited):
+        """
+        Обходим граф
+        """
+        visited[v] = True
+        for i in self.start[v]:
+            if not visited[i]:
+                self.dfs(i, visited)
+
+    def comp(self):
+        """
+        Считаем компоненты связности (несвязанные графы)
+        """
+        visited = [False] * self.G  # все вершины непосещенные
+        count = 0  # число компонент связности
+
+        for v in range(self.G):
+            if not visited[v]:
+                self.dfs(v, visited)
+                count += 1
+
+        return count
 
 
-def components(g):  # определим число компонент
-    comp_svaz = []
-    seen = set()
-    for i in range(9):
-        if i in seen:
-            continue
-        C = dfs(g, i)
-        seen.update(C)
-        comp_svaz.append(C)
-    return len(comp_svaz)
-
-
-if __name__ == "__main__":
-    a, b, c, d, e, f, g, h, i = range(9)
-    N = [
-        {b, c, d, e},   # a
-        {a, d},      # b
-        {a, d},       # c
-        {a, c, d},     # d
-        {a, g, f},       # e
-        {e, g},       # f
-        {e, f},       # g
-        {h},         # h
-        {i}          # i
-    ]
-    comp = components(N)
-    print(comp)  # равно 3
+if __name__ == '__main__':
+    g = Graph(7)
+    g.add(0, 1)
+    g.add(1, 2)
+    g.add(3, 4)
+    # Граф: 0-1-2, 3-4, 5, 6
+    print(g.comp())
+    # Ответ: 4
